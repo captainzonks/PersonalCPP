@@ -13,27 +13,29 @@ using std::tolower;
 
 size_t duplicateCount(const char* in)
 {
+    std::string input{ in };
     size_t count{};
     vector<char> seenLetters{};
 
     if (in != "" && in != " ")
     {
-        for (size_t i{}; i != strlen(in); ++i)
+        for (size_t i{}; i != input.length(); ++i)
         {
-            for (size_t j{ i + 1 }; j != strlen(in); ++j)
+            for (size_t j{ i + 1 }; j != input.length(); ++j)
             {
-                if (tolower(in[i]) == tolower(in[j]))
+                if (tolower(input[i]) == tolower(input[j]))
                 {
-                    for (size_t k{}; k != size(seenLetters); ++k)
+                    int seenLetterCount{};
+                    seenLetters.push_back(tolower(input[i]));
+                    for (size_t k{}; k != input.length(); ++k)
                     {
-                        if (tolower(in[i]) != tolower(seenLetters[k]))
+                        if (tolower(input[k]) == seenLetters[seenLetterCount])
                         {
-                            seenLetters.push_back(tolower(in[i]));
-                            count++;
+                            input.erase(k, 1);
                         }
-                        else
-                            continue;
                     }
+                    count++;
+                    seenLetterCount++;
                 }
             }
         }
@@ -47,7 +49,7 @@ size_t duplicateCount(const char* in)
 int main()
 {
 
-    cout << duplicateCount("Indivisibility");
+    cout << duplicateCount("ABBA");
 }
 
 
