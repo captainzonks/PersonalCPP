@@ -1,5 +1,6 @@
 // countingDuplicates.cpp
-//
+// 2020-01-25
+// counts total duplicate characters in a string
 
 #include <iostream>
 #include <string>
@@ -15,23 +16,46 @@ size_t duplicateCount(const char* in)
 {
     std::string input{ in };
     size_t count{};
+    int subCount{};
+    int seenLetterCount{};
     vector<char> seenLetters{};
 
-    if (in != "" && in != " ")
+    if (input != "" && input != " " && input.size() != 0)
     {
-        for (size_t i{}; i != input.length(); ++i)
+        for (size_t i{}; i != input.size() && input.size() > 1; ++i)
         {
-            for (size_t j{ i + 1 }; j != input.length(); ++j)
+            if (subCount != 0 && i != 0)
             {
+                i -= subCount;
+                subCount = 0;
+            }
+            if (input.size() == 0)
+                break;
+            for (size_t j{ i + 1 }; j != input.size() && input.size() > 1; ++j)
+            {
+                if (subCount != 0 && j != 0)
+                {
+                    j = i + 1;
+                    subCount = 0;
+                }
+                if (input.size() == 0)
+                    break;
                 if (tolower(input[i]) == tolower(input[j]))
                 {
-                    int seenLetterCount{};
                     seenLetters.push_back(tolower(input[i]));
-                    for (size_t k{}; k != input.length(); ++k)
+                    input.erase(i, 1);
+                    if (j != 0)
+                        --j;
+                    ++subCount;
+                    for (size_t k{}; k != input.size() && input.size() > 1; ++k)
                     {
-                        if (tolower(input[k]) == seenLetters[seenLetterCount])
+                        if (input.size() != 0 && tolower(input[k]) == seenLetters[seenLetterCount])
                         {
                             input.erase(k, 1);
+                            if (k != 0)
+                                --k;
+                            if (j != 0)
+                                --j;
                         }
                     }
                     count++;
@@ -41,7 +65,6 @@ size_t duplicateCount(const char* in)
         }
         return count;
     }
-
     return 0;
 };
 
@@ -49,7 +72,9 @@ size_t duplicateCount(const char* in)
 int main()
 {
 
-    cout << duplicateCount("ABBA");
+    //cout << duplicateCount("Mississippi"); // works
+    //cout << duplicateCount("aabbccddeeff"); // works
+    cout << duplicateCount("abbccddeef"); // fails
 }
 
 
