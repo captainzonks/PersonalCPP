@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-
 using std::cout;
 using std::endl;
 using std::vector;
@@ -16,50 +15,26 @@ size_t duplicateCount(const char* in)
 {
     std::string input{ in };
     size_t count{};
-    int subCount{};
-    int seenLetterCount{};
+    int seenCounter{};
     vector<char> seenLetters{};
 
-    if (input != "" && input != " " && input.size() != 0)
+    if (input != "" && input != " " && input.size() > 1)
     {
         for (size_t i{}; i != input.size() && input.size() > 1; ++i)
         {
-            if (subCount != 0 && i != 0)
-            {
-                i -= subCount;
-                subCount = 0;
-            }
-            if (input.size() == 0)
-                break;
             for (size_t j{ i + 1 }; j != input.size() && input.size() > 1; ++j)
             {
-                if (subCount != 0 && j != 0)
+                if (tolower(input[i]) == tolower(input[j]) && tolower(input[i]) != ' ')
                 {
-                    j = i + 1;
-                    subCount = 0;
-                }
-                if (input.size() == 0)
-                    break;
-                if (tolower(input[i]) == tolower(input[j]))
-                {
-                    seenLetters.push_back(tolower(input[i]));
-                    input.erase(i, 1);
-                    if (j != 0)
-                        --j;
-                    ++subCount;
-                    for (size_t k{}; k != input.size() && input.size() > 1; ++k)
+                    char letter = tolower(input[i]);
+                    for (size_t k{}; k != input.size() || input.size() == 0; ++k)
                     {
-                        if (input.size() != 0 && tolower(input[k]) == seenLetters[seenLetterCount])
+                        if (letter == tolower(input[k]))
                         {
-                            input.erase(k, 1);
-                            if (k != 0)
-                                --k;
-                            if (j != 0)
-                                --j;
+                            input[k] = ' ';
                         }
                     }
-                    count++;
-                    seenLetterCount++;
+                    ++count;
                 }
             }
         }
@@ -68,19 +43,11 @@ size_t duplicateCount(const char* in)
     return 0;
 };
 
-
 int main()
 {
-
-    //cout << duplicateCount("Mississippi"); // works
-    //cout << duplicateCount("aabbccddeeff"); // works
-    cout << duplicateCount("abbccddeef"); // fails
+    cout << duplicateCount("Indivisibility") << endl;// works
+    cout << duplicateCount("Mississippi") << endl; // works
+    cout << duplicateCount("aabbccddeeff") << endl; // works
+    cout << duplicateCount("abbccddeef") << endl; // works
+    cout << duplicateCount("testing this string") << endl; // works
 }
-
-
-
-
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
