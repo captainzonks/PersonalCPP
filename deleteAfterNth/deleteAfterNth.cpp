@@ -18,11 +18,11 @@ std::vector<int> deleteNth(std::vector<int> arr, int n)
 
     for (size_t i{}; i < arr.size(); ++i)
     {
-        if (counts[arr[i]] < n)
+        // check if counts has reached the Nth allowance, then increment
+        if (counts[arr[i]]++ < n)
         {
             newArr.push_back(arr[i]);
         }
-        ++counts[arr[i]];
     }
 
     return newArr;
