@@ -2,7 +2,7 @@
 // 2020-01-27
 // takes an array of integers and an "n" int value
 // and reproduces the array with each integer only
-// appearing "n" number of times
+// reproduced "n" number of times
 
 #include <iostream>
 #include <vector>
@@ -14,7 +14,6 @@ using std::endl;
 std::vector<int> deleteNth(std::vector<int> arr, int n)
 {
     std::map<int, int> counts;
-    std::vector<int> keyOrder;
     std::vector<int> newArr;
 
     for (size_t i{}; i < arr.size(); ++i)
@@ -22,31 +21,9 @@ std::vector<int> deleteNth(std::vector<int> arr, int n)
         if (counts[arr[i]] < n)
         {
             newArr.push_back(arr[i]);
-            cout << "added " << arr[i] << " to Array" << endl;
         }
         ++counts[arr[i]];
     }
-
-    /*for (auto elem : counts)
-    {
-        if (elem.second > n)
-        {
-            for (int i{ n }; i != 0; --i)
-            {
-                newArr.push_back(elem.first);
-                i++;
-            }
-        }
-        else
-        {
-            for (int i{ elem.second }; i != 0; --i)
-            {
-                newArr.push_back(elem.first);
-                i++;
-            }
-        }
-      
-    }*/
 
     return newArr;
 };
