@@ -1,23 +1,43 @@
 // deleteAfterNth.cpp
-//
+// 2020-01-27
+// takes an array of integers and an "n" int value
+// and reproduces the array with each integer only
+// appearing "n" number of times
 
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <algorithm>
 
 using std::cout;
 using std::endl;
 
 std::vector<int> deleteNth(std::vector<int> arr, int n)
 {
-    std::vector<int> newArr (arr.size());
+    std::unordered_map<int, int> counts;
+    std::vector<int> newArr;
 
-    auto it = std::copy_if(arr.begin(), arr.end(), newArr.begin(), [n](int i) {
-        for (size_t count{}; count < n; count++) 
-            return i;
-        });
-    newArr.resize(std::distance(newArr.begin(), it));
+    for (size_t i{}; i < arr.size(); ++i)
+    {
+        ++counts[arr[i]];
+    }
+
+    for (auto elem : counts)
+    {
+        if (elem.second > n)
+        {
+            for (int i{ n }; i != 0; --i)
+            {
+                newArr.push_back(elem.first);
+            }
+        }
+        else
+        {
+            for (int i{ elem.second }; i != 0; --i)
+            {
+                newArr.push_back(elem.first);
+            }
+        }
+    }
 
     return newArr;
 };
@@ -27,12 +47,12 @@ void display(std::vector<int> arr)
     std::cout << "[ ";
     for (size_t i{}; i != arr.size(); ++i)
     {
-        std::cout << arr[i];
+        std::cout << arr[i] << " ";
     }
     std::cout << "]" << std::endl;
 }
 
 int main()
 {
-    display(deleteNth({ 1, 1, 1, 1 }, 2));
+    display(deleteNth({ 20, 37, 20, 21 }, 1));
 }
