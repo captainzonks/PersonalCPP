@@ -6,28 +6,35 @@
 
 #include <iostream>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 using std::cout;
 using std::endl;
 
 std::vector<int> deleteNth(std::vector<int> arr, int n)
 {
-    std::unordered_map<int, int> counts;
+    std::map<int, int> counts;
+    std::vector<int> keyOrder;
     std::vector<int> newArr;
 
     for (size_t i{}; i < arr.size(); ++i)
     {
+        if (counts[arr[i]] < n)
+        {
+            newArr.push_back(arr[i]);
+            cout << "added " << arr[i] << " to Array" << endl;
+        }
         ++counts[arr[i]];
     }
 
-    for (auto elem : counts)
+    /*for (auto elem : counts)
     {
         if (elem.second > n)
         {
             for (int i{ n }; i != 0; --i)
             {
                 newArr.push_back(elem.first);
+                i++;
             }
         }
         else
@@ -35,9 +42,11 @@ std::vector<int> deleteNth(std::vector<int> arr, int n)
             for (int i{ elem.second }; i != 0; --i)
             {
                 newArr.push_back(elem.first);
+                i++;
             }
         }
-    }
+      
+    }*/
 
     return newArr;
 };
@@ -54,5 +63,5 @@ void display(std::vector<int> arr)
 
 int main()
 {
-    display(deleteNth({ 20, 37, 20, 21 }, 1));
+    display(deleteNth({ 11, 12, 11, 27, 11, 33, 11, 95, 33, 27, 12, 12 }, 2));
 }
