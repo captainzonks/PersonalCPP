@@ -6,41 +6,29 @@
 #include <string>
 #include <vector>
 
+#include <unordered_map>
+#include <cctype>
+#include <algorithm>
+
 using std::cout;
 using std::endl;
-using std::vector;
 using std::tolower;
 
 size_t duplicateCount(const char* in)
 {
-    std::string input{ in };
-    size_t count{};
-    int seenCounter{};
-    vector<char> seenLetters{};
+    std::unordered_map<char, unsigned> counts;
 
-    if (input != "" && input != " " && input.size() > 1)
+    // for each character from in, check for null
+    for (const char* c{ in }; *c != '\0'; ++c)
     {
-        for (size_t i{}; i != input.size() && input.size() > 1; ++i)
-        {
-            for (size_t j{ i + 1 }; j != input.size() && input.size() > 1; ++j)
-            {
-                if (tolower(input[i]) == tolower(input[j]) && tolower(input[i]) != ' ')
-                {
-                    char letter = tolower(input[i]);
-                    for (size_t k{}; k != input.size() || input.size() == 0; ++k)
-                    {
-                        if (letter == tolower(input[k]))
-                        {
-                            input[k] = ' ';
-                        }
-                    }
-                    ++count;
-                }
-            }
-        }
-        return count;
+        // increase count for each seen letter
+        ++counts[tolower(*c)];
     }
-    return 0;
+    
+    // return the count ONLY if the count is greater than 1 (find duplicates)
+    return std::count_if(cbegin(counts), cend(counts), [](const auto& count) {
+        return count.second > 1;
+        });
 };
 
 int main()
