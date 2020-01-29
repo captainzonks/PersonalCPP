@@ -1,20 +1,27 @@
-// sumOfTwoIntegers.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// sumOfTwoIntegers.cpp
+// 2020-01-29
+// Given Two integers a & b, find The sum of them
+// BUT You are not allowed to use the operators + and -
 
 #include <iostream>
 
-int main()
+// recursive implementation
+// of sum of bits x and y using
+// bitwise XOR (^)
+// and carry bit via AND (&)
+// until no carry bits remain
+int Add(int x, int y)
 {
-    std::cout << "Hello World!\n";
+    if (y == 0)
+        return x;
+    else
+        return Add(x ^ y, (x & y) << 1);
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main()
+{
+    std::cout << Add(10, 20) << std::endl;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    return 0;
+}
+
