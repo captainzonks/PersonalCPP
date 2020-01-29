@@ -1,5 +1,7 @@
 // createPhoneNumber.cpp
-//
+// 2020-01-29
+// given an array of 10 integers
+// create a function that outputs a formatted phone number
 
 #include <iostream>
 #include <string>
