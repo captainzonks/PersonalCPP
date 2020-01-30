@@ -20,7 +20,7 @@ int Add(int x, int y)
 
 int main()
 {
-    std::cout << Add(10, 20) << std::endl;
+    std::cout << Add(17, 9) << std::endl;
 
     return 0;
 }
