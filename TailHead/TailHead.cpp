@@ -7,6 +7,7 @@ using namespace std;
 
 void fun1(int n)
 {
+    // tail (3 2 1)
     if (n > 0)
     {
         printf("%d ", n);
@@ -16,6 +17,7 @@ void fun1(int n)
 
 void fun2(int n)
 {
+    // head (1 2 3)
     if (n > 0)
     {
         fun2(n - 1);
